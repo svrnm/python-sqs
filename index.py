@@ -5,6 +5,8 @@ import tornado.ioloop
 import tornado.web
 import os
 import boto3
+import requests
+import json
 
 sqs = boto3.resource('sqs')
 queue = sqs.get_queue_by_name(QueueName='appd-test-queue')
@@ -31,6 +33,9 @@ class SendHandler(tornado.web.RequestHandler):
                 'DataType': 'String'
             }
         })
+        # requestGUID = correlation_header[1].split('*guid=')[1].split('*')[0]
+        # data = json.dumps([{'name':'start','requestGUID':requestGUID}])
+        # response = requests.post('https://analytics.api.appdynamics.com/events/publish/dummy', headers={'X-Events-API-AccountName':'<<>>', 'X-Events-API-Key':'<<>>', 'content-type':'application/vnd.appd.events+json;v=2'}, data=data)
         appd.end_exit_call(exit_call_handle)
 
 class ProcessHandler(tornado.web.RequestHandler):
