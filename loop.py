@@ -24,12 +24,15 @@ if __name__ == "__main__":
 
             # Print out the body and author (if set)
             # APPDYNAMICS: Create BT handle manually
+            print('process message...')
             with appd.bt('process message', correlation_header) as bt_handle:
+                time.sleep( 0.5 )
                 print(correlation_header)
                 print('Hello, {0}!{1}'.format(message.body, author_text))
-                exit_call_handle = appd.start_exit_call(bt_handle, appd.EXIT_CACHE, 'sqs-2', {'VENDOR': 'AWS', 'SERVERPOOL': 'appd-test-queue-2'})
+                appd.add_snapshot_data(bt_handle,'body',message.body)
+                exit_call_handle = appd.start_exit_call(bt_handle, appd.EXIT_QUEUE, 'sqs-queue-next', {'VENDOR': 'AWS', 'SERVERPOOL': 'appd-test-queue-next'})
                 print(appd.make_correlation_header(bt_handle, exit_call_handle))
-                time.sleep( 1 )
+                time.sleep( 0.5 )
                 appd.end_exit_call(exit_call_handle)
 
 

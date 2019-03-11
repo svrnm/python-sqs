@@ -17,9 +17,10 @@ class SendHandler(tornado.web.RequestHandler):
 
     def sendMessage(self):
         bt_handle = appd.get_active_bt_handle(self.request)
-        exit_call_handle = appd.start_exit_call(bt_handle, appd.EXIT_CACHE, 'sqs', {'VENDOR': 'AWS', 'SERVERPOOL': 'appd-test-queue'})
+        exit_call_handle = appd.start_exit_call(bt_handle, appd.EXIT_QUEUE, 'sqs-queue', {'VENDOR': 'AWS', 'SERVERPOOL': 'appd-test-queue'})
         correlation_header = appd.make_correlation_header(bt_handle, exit_call_handle)
         print(correlation_header)
+        appd.add_snapshot_data(bt_handle,'Author','AppDynamics')
         queue.send_message(MessageBody='boto3', MessageAttributes={
             'Author': {
                 'StringValue': 'AppDynamics',
