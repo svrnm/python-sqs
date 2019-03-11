@@ -1,4 +1,4 @@
-# Python with correlation over SQS
+# Python with correlation for SQS
 
 To run the project rename the [agent.stub.cfg](agent.stub.cfg) to `agent.cfg` and the [loop.stub.cfg](loop.stub.cfg) to `loop.cfg` and
 set your controller properties.
