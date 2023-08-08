@@ -1,5 +1,8 @@
 # Python with correlation for SQS
 
+> **Warning**
+> This code is no longer maintained and only available as history. It may no longer work.
+
 To run the project rename the [agent.stub.cfg](agent.stub.cfg) to `agent.cfg` and the [loop.stub.cfg](loop.stub.cfg) to `loop.cfg` and
 set your controller properties.
 
@@ -14,16 +17,19 @@ pip install -r requirements.txt
 Afterwards you can run the application with the following three commands:
 
 - Tornado Webserver:
-```shell
-env TORNADO_PORT=8888 pyagent run -c agent.cfg -- python index.py
-```
+
+  ```shell
+  env TORNADO_PORT=8888 pyagent run -c agent.cfg -- python index.py
+  ```
 
 - Receiver Loop:
-```shell
-pyagent run -c loop.cfg -- python loop.py
-```
+
+  ```shell
+  pyagent run -c loop.cfg -- python loop.py
+  ```
 
 - curl to call the webserver
-```shell
-while [ true ] ; do curl -o - "http://localhost:8888/send" ; sleep 1; done;
-```
+
+  ```shell
+  while [ true ] ; do curl -o - "http://localhost:8888/send" ; sleep 1; done;
+  ```
